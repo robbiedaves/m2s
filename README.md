@@ -80,3 +80,60 @@ I added the following line to eh Mojo generator, which adds the generated-source
 ```java
         project.addCompileSourceRoot(generatedSourcesDir());
 ```
+
+# Notes
+We can now generate code from a maven plugin, with YAML
+
+What do we want to do?
+
+I want to create a mojo and all I need to do is extend an class
+I can then set the parameters i need and how I generate
+
+I should then be able to set the model type
+- xml
+- yml
+- json
+
+I can then define the parameters
+- basePackage
+- modelLocation
+- modelType 
+
+So all I need to define is the model classes and how I generate from these models.
+
+So there are 2 steps 
+- parse the model text files into model objects
+	XML, JSON, YAML -> Java objects
+- Pass in the models to the generators
+	javapoet
+	freemarker
+	jenisis
+	jet
+- maven plugin
+- gradle plugin
+
+A key thing is to keep the mojo simple
+All it should do is collect 
+
+
+m2s - model to source
+
+m2s-base
+m2s-test-maven-plugin
+m2s-test-model
+m2s-test-javapoet-generator
+m2s-test-??-generator
+m2s-test-project
+
+I think each model should have a type field
+
+modelType: pmCoverages
+  - code: PMMotorCov
+    desc: Personal Motor Coverage
+    category: standard ancillary
+    availability:
+      - 
+  - code: PMBreakdown
+    desc: Breakdown cover
+    
+
