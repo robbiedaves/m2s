@@ -103,30 +103,31 @@ So all I need to define is the model classes and how I generate from these model
 
 So there are 2 steps 
 - parse the model text files into model objects
-	XML, JSON, YAML -> Java objects
+	- XML, JSON, YAML -> Java objects
 - Pass in the models to the generators
-	javapoet
-	freemarker
-	jenisis
-	jet
+	- javapoet
+	- freemarker
+	- jenisis
+	- jet
 - maven plugin
 - gradle plugin
 
 A key thing is to keep the mojo simple
+
 All it should do is collect 
 
 
-m2s - model to source
-
-m2s-base
-m2s-test-maven-plugin
-m2s-test-model
-m2s-test-javapoet-generator
-m2s-test-??-generator
-m2s-test-project
+- m2s model to source
+    - m2s-base
+    - m2s-test-maven-plugin
+    - m2s-test-model
+    - m2s-test-javapoet-generator
+    - m2s-test-??-generator
+    - m2s-test-project
 
 I think each model should have a type field
 
+```yaml
 modelType: pmCoverages
   - code: PMMotorCov
     desc: Personal Motor Coverage
@@ -135,5 +136,5 @@ modelType: pmCoverages
       - 
   - code: PMBreakdown
     desc: Breakdown cover
-    
+``` 
 
