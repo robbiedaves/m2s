@@ -138,3 +138,106 @@ modelType: pmCoverages
     desc: Breakdown cover
 ``` 
 
+### notes cont...
+com.admiral.uk.adms
+
+adms-pcs
+
+adms-pcs-product
+	adms-pcs-product-maven-plugin
+	adms-pcs-product-model
+	adms-pcs-product-generator
+
+
+We need to think about the format of the files...
+2 choices
+Change the file extension and set the type
+
+.model -> yaml file
+.cov   -> json file
+
+or we have
+.yaml  -> any object
+
+A yaml file can have multiple doucments in it
+
+If we change the extension, we can set an association
+
+I've looked at docker and ansible, and they keep the .yml file extension, so we should.
+Also, yaml can have multiple documents in the same file
+
+So how do we recognise the type?
+
+We need the type 
+
+coverage:
+  code: pmmotorcov
+  desc: person motor coverage
+
+So coverage here is defining the type
+But how do we read the type, if we need to parse the file before we know what type it is?
+
+# How to deal with inheritance in the models
+http://www.baeldung.com/jackson-inheritance
+
+## The model inheritance problem and the vistor pattern
+https://stackoverflow.com/questions/29458676/how-to-avoid-instanceof-when-implementing-factory-design-pattern
+
+This is a good example to allow the access and processing of the models using a type safe vistor pattern.
+
+So, we could use annotation processing, to annotate the model entities, then generate the visitor classes.
+Then, all we need to write is the generator code to access the model classes!
+We may not require any manual code
+Perhaps we could (in the model) add any additional classes to extend the generated classes.
+THIS IS GOOD!
+
+Howevere, this does not account for hiarachhy in the model
+The current solution will collect a list of model objects. 
+The get method will be type safe, but it still is a flat list of model objects
+What if a vehicle model, had a list of drivers
+Drivers would be in each vehicle, so this would work yea?
+
+Ok, I think this would work, but our visitor patter will have generated a getDrivers() but it won't find any
+You would have to navigate to the vehicle first!
+
+
+## new notes
+So generics seems be be difficult with Jackson
+
+So what do we need...
+
+I design the model classes
+So I always need a model class, then the fields or arrays
+
+If I added an anotation to the model class, then I could generate all the helper methods for the model!
+
+coverages:
+  - code: pmmotorcov
+    desc: klkjkl
+    
+
+We create the models in java
+We annote the models 
+The annotation processor generates the helper methods for the models
+
+Do models have to extend a model?
+Why do they have to?
+What extra functionallity do they need?
+
+We can have bean validation in the model class
+So we really have everything
+
+The problem is, where are the files found and what tells us what files are what?
+We can use annoation processor to generate any helper files we want
+But still what is saying what each file is?
+
+Look at the immutables thing
+http://www.baeldung.com/immutables
+
+Here you create an abstract class, annotate it with Immutable and it generates the immuatable class
+So Abstract Person will generate ImmutablePerson
+
+So could we do an abstract item, then it generates the model
+abstract Coverage...
+generates
+CoverageModel
